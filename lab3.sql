@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema SAMPLE13_45
+-- Schema SAMPLE13_44
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema SAMPLE13_45
+-- Schema SAMPLE13_44
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `SAMPLE13_45` DEFAULT CHARACTER SET utf8 ;
-USE `SAMPLE13_45` ;
+CREATE SCHEMA IF NOT EXISTS `SAMPLE13_44` DEFAULT CHARACTER SET utf8 ;
+USE `SAMPLE13_44` ;
 
 -- -----------------------------------------------------
--- Table `SAMPLE13_45`.`PUBLISHER`
+-- Table `SAMPLE13_44`.`PUBLISHER`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`PUBLISHER` (
+CREATE TABLE IF NOT EXISTS `SAMPLE13_44`.`PUBLISHER` (
   `Name` VARCHAR(45) NOT NULL,
   `Address` VARCHAR(45) NULL,
   `Phone` VARCHAR(45) NULL,
@@ -26,9 +26,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SAMPLE13_45`.`BOOK`
+-- Table `SAMPLE13_44`.`BOOK`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`BOOK` (
+CREATE TABLE IF NOT EXISTS `SAMPLE13_44`.`BOOK` (
   `BookId` INT UNSIGNED NOT NULL,
   `Title` VARCHAR(45) NULL,
   `PublisherName` VARCHAR(45) NOT NULL,
@@ -36,31 +36,31 @@ CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`BOOK` (
   INDEX `PublisherName_idx` (`PublisherName` ASC),
   CONSTRAINT `BPublisherFK`
     FOREIGN KEY (`PublisherName`)
-    REFERENCES `SAMPLE13_45`.`PUBLISHER` (`Name`)
+    REFERENCES `SAMPLE13_44`.`PUBLISHER` (`Name`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SAMPLE13_45`.`BOOK_AUTHORS`
+-- Table `SAMPLE13_44`.`BOOK_AUTHORS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`BOOK_AUTHORS` (
+CREATE TABLE IF NOT EXISTS `SAMPLE13_44`.`BOOK_AUTHORS` (
   `BookId` INT UNSIGNED NOT NULL,
   `AuthorName` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`BookId`, `AuthorName`),
   CONSTRAINT `BAIdFK`
     FOREIGN KEY (`BookId`)
-    REFERENCES `SAMPLE13_45`.`BOOK` (`BookId`)
+    REFERENCES `SAMPLE13_44`.`BOOK` (`BookId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SAMPLE13_45`.`LIBRARY_BRANCH`
+-- Table `SAMPLE13_44`.`LIBRARY_BRANCH`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`LIBRARY_BRANCH` (
+CREATE TABLE IF NOT EXISTS `SAMPLE13_44`.`LIBRARY_BRANCH` (
   `BranchId` INT UNSIGNED NOT NULL,
   `BranchName` VARCHAR(45) NULL,
   `Address` VARCHAR(45) NULL,
@@ -69,9 +69,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SAMPLE13_45`.`BOOK_COPIES`
+-- Table `SAMPLE13_44`.`BOOK_COPIES`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`BOOK_COPIES` (
+CREATE TABLE IF NOT EXISTS `SAMPLE13_44`.`BOOK_COPIES` (
   `BookId` INT UNSIGNED NOT NULL,
   `BranchId` INT UNSIGNED NOT NULL,
   `No_Of_Copies` INT NOT NULL,
@@ -79,21 +79,21 @@ CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`BOOK_COPIES` (
   INDEX `BranchId_idx` (`BranchId` ASC),
   CONSTRAINT `BCIdFK`
     FOREIGN KEY (`BookId`)
-    REFERENCES `SAMPLE13_45`.`BOOK` (`BookId`)
+    REFERENCES `SAMPLE13_44`.`BOOK` (`BookId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `BCBranchId`
     FOREIGN KEY (`BranchId`)
-    REFERENCES `SAMPLE13_45`.`LIBRARY_BRANCH` (`BranchId`)
+    REFERENCES `SAMPLE13_44`.`LIBRARY_BRANCH` (`BranchId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SAMPLE13_45`.`BORROWER`
+-- Table `SAMPLE13_44`.`BORROWER`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`BORROWER` (
+CREATE TABLE IF NOT EXISTS `SAMPLE13_44`.`BORROWER` (
   `CardNo` VARCHAR(45) NOT NULL,
   `Name` VARCHAR(45) NULL,
   `Address` VARCHAR(45) NULL,
@@ -103,9 +103,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SAMPLE13_45`.`BOOK_LOANS`
+-- Table `SAMPLE13_44`.`BOOK_LOANS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`BOOK_LOANS` (
+CREATE TABLE IF NOT EXISTS `SAMPLE13_44`.`BOOK_LOANS` (
   `BookId` INT UNSIGNED NOT NULL,
   `BranchId` INT UNSIGNED NOT NULL,
   `CardNo` VARCHAR(45) NOT NULL,
@@ -116,17 +116,17 @@ CREATE TABLE IF NOT EXISTS `SAMPLE13_45`.`BOOK_LOANS` (
   INDEX `BranchId_idx` (`BranchId` ASC),
   CONSTRAINT `BLIdFK`
     FOREIGN KEY (`BookId`)
-    REFERENCES `SAMPLE13_45`.`BOOK` (`BookId`)
+    REFERENCES `SAMPLE13_44`.`BOOK` (`BookId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `BLBranchIdFK`
     FOREIGN KEY (`BranchId`)
-    REFERENCES `SAMPLE13_45`.`LIBRARY_BRANCH` (`BranchId`)
+    REFERENCES `SAMPLE13_44`.`LIBRARY_BRANCH` (`BranchId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `BLCardNoFK`
     FOREIGN KEY (`CardNo`)
-    REFERENCES `SAMPLE13_45`.`BORROWER` (`CardNo`)
+    REFERENCES `SAMPLE13_44`.`BORROWER` (`CardNo`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
